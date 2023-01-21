@@ -1,12 +1,17 @@
 <script lang="ts">
   import Router from "svelte-spa-router";
   import { routes } from "./router";
+  import RpcSelector from "./components/RpcSelector.svelte";
+  import { rpcConnection } from "./stores";
 </script>
 
 <main>
-  <h1 style="margin: 0em;"><a href="/#/">🏠</a> ts-svelte-webpack-orca-starter </h1>
+  <div style="text-align: right;"><RpcSelector /></div>
+  <h1 style="margin: 0em;"><a href="#/">🏠</a> ts-svelte-webpack-orca-starter </h1>
   <hr />
+  {#key $rpcConnection} <!-- re-render if rpcConnection is changed -->
   <Router {routes} />
+  {/key}
 </main>
 
 <style>

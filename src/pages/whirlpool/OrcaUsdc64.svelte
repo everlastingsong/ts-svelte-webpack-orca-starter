@@ -6,10 +6,10 @@
     WhirlpoolData,
   } from "@orca-so/whirlpools-sdk";
   import Decimal from "decimal.js";
-  import { RPC_ENDPOINT_URL, ORCA_USDC_64_PUBKEY } from "../../lib/constants";
+  import { rpcConnection } from "../../stores/index";
+  import { ORCA_USDC_64_PUBKEY } from "../../lib/constants";
 
-  const connection = new Connection(RPC_ENDPOINT_URL, "confirmed");
-  const fetcher = new AccountFetcher(connection);
+  const fetcher = new AccountFetcher($rpcConnection);
 
   const getPrice = async (poolData: WhirlpoolData): Promise<Decimal> => {
     const mints = await fetcher.listMintInfos(
@@ -31,7 +31,7 @@
 {#await poolDataPromise}
   loading...
   <ul>
-    <li>RPC: {RPC_ENDPOINT_URL}</li>
+    <li>RPC: {$rpcConnection.rpcEndpoint}</li>
     <li>Pubkey: {ORCA_USDC_64_PUBKEY}</li>
   </ul>
 {:then poolData}

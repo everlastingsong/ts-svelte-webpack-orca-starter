@@ -9,13 +9,13 @@
   } from "@orca-so/whirlpools-sdk";
   import Decimal from "decimal.js";
   import { KeypairWallet } from "../../lib/keypair-wallet";
-  import { RPC_ENDPOINT_URL, SOL_USDC_64_PUBKEY } from "../../lib/constants";
+  import { rpcConnection } from "../../stores/index";
+  import { SOL_USDC_64_PUBKEY } from "../../lib/constants";
 
-  const connection = new Connection(RPC_ENDPOINT_URL, "confirmed");
   const wallet = new KeypairWallet(Keypair.generate());
 
   const ctx = WhirlpoolContext.from(
-    connection,
+    $rpcConnection,
     wallet,
     ORCA_WHIRLPOOL_PROGRAM_ID
   );
@@ -37,7 +37,7 @@
 {#await poolPromise}
   loading...
   <ul>
-    <li>RPC: {RPC_ENDPOINT_URL}</li>
+    <li>RPC: {$rpcConnection.rpcEndpoint}</li>
     <li>Pubkey: {SOL_USDC_64_PUBKEY}</li>
   </ul>
 {:then pool}

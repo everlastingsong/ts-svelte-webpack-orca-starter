@@ -5,8 +5,9 @@
     PriceMath,
     WhirlpoolData,
   } from "@orca-so/whirlpools-sdk";
-  import { RPC_ENDPOINT_URL, SOL_USDC_8_PUBKEY } from "../../lib/constants";
+  import { SOL_USDC_8_PUBKEY } from "../../lib/constants";
   import { getTokenMap, TokenListEntry } from "../../lib/orcaapi";
+  import { rpcConnection } from "../../stores/index";
   import { onMount } from "svelte";
   import Decimal from "decimal.js";
   import moment from "moment";
@@ -16,7 +17,6 @@
     price: Decimal;
   };
 
-  const connection = new Connection(RPC_ENDPOINT_URL, "confirmed");
   let tokens: Record<string, TokenListEntry> = undefined;
 
   let updatedMoment: moment.Moment = undefined;
@@ -61,7 +61,7 @@
 
     // subscribe
     console.log("subscribe on");
-    const subscriptionId = connection.onAccountChange(
+    const subscriptionId = $rpcConnection.onAccountChange(
       SOL_USDC_8_PUBKEY,
       updateCallback,
       "confirmed"
@@ -69,7 +69,7 @@
 
     // initial fetch
     (async () => {
-      const dataWithContext = await connection.getAccountInfoAndContext(
+      const dataWithContext = await $rpcConnection.getAccountInfoAndContext(
         SOL_USDC_8_PUBKEY,
         "confirmed"
       );
@@ -78,7 +78,7 @@
 
     // unsubscribe on unmount
     return () => {
-      connection.removeAccountChangeListener(subscriptionId).then(() => {
+      $rpcConnection.removeAccountChangeListener(subscriptionId).then(() => {
         console.log("subscribe off");
       });
     };
