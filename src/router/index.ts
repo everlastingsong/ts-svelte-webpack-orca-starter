@@ -4,6 +4,7 @@ import OrcaUsdc64 from "../pages/whirlpool/OrcaUsdc64.svelte";
 import WhirlpoolList from "../pages/whirlpool/WhirlpoolList.svelte";
 import TokenList from "../pages/whirlpool/TokenList.svelte";
 import MonitorSolUsdc8 from "../pages/whirlpool/MonitorSolUsdc8.svelte";
+import SwapSolForUsdc from "../pages/whirlpool/SwapSolForUsdc.svelte"
 
 export const routes = {
   '/': Home,
@@ -12,4 +13,5 @@ export const routes = {
   '/whirlpool/list': WhirlpoolList,
   '/whirlpool/tokens': TokenList,
   '/whirlpool/monitor': MonitorSolUsdc8,
+  '/whirlpool/swap': SwapSolForUsdc,
 }
