@@ -8,9 +8,9 @@
     PriceMath,
     swapQuoteByInputToken,
   } from "@orca-so/whirlpools-sdk";
-  import { Percentage } from "@orca-so/common-sdk";
+  import { Percentage, Wallet } from "@orca-so/common-sdk";
   import Decimal from "decimal.js";
-  import { u64 } from "@solana/spl-token";
+  import BN from "bn.js";
   import { AdapterWallet } from "../../lib/adapter-wallet";
   import { rpcConnection } from "../../stores/index";
   import { SOL_USDC_64_PUBKEY } from "../../lib/constants";
@@ -39,7 +39,7 @@
 
   async function swap() {
     log("swap...");
-    const wallet = new AdapterWallet(adapter as SignerWalletAdapter);
+    const wallet = new AdapterWallet(adapter as SignerWalletAdapter) as Wallet;
     const ctx = WhirlpoolContext.from($rpcConnection, wallet, ORCA_WHIRLPOOL_PROGRAM_ID);
     const client = buildWhirlpoolClient(ctx);
 
@@ -49,11 +49,10 @@
     const quote = await swapQuoteByInputToken(
       pool,
       pool.getTokenAInfo().mint,
-      new u64(100_000), // lamports
+      new BN(100_000), // lamports
       Percentage.fromFraction(1, 100), // 1%
       ORCA_WHIRLPOOL_PROGRAM_ID,
       ctx.fetcher,
-      true
     );
 
     log("build tx...");

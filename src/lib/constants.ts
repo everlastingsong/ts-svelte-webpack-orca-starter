@@ -5,7 +5,6 @@ export const SOL_USDC_64_PUBKEY = new PublicKey("HJPjoWUrhoZzkNfRpHuieeFk9WcZWjw
 export const ORCA_USDC_64_PUBKEY = new PublicKey("5Z66YYYaTmmx1R4mATAGLSc8aV4Vfy5tNdJQzk1GP9RF");
 
 export const WELL_KNOWN_PUBLIC_RPC_ENDPOINTS: {name: string, endpoint: string, prefer?: boolean}[] = [
-  { name: "Solana", endpoint: "https://api.mainnet-beta.solana.com" },
-  { name: "Anker", endpoint: "https://rpc.ankr.com/solana", prefer: true },
-  { name: "Everstake", endpoint: "https://solana-mainnet.rpc.extrnode.com" }
+  { name: "Mainnet HELIUS", endpoint: "https://rpc-proxy.yugure-crypto.workers.dev", prefer: true },
+  { name: "Mainnet Solana Public", endpoint: "https://api.mainnet-beta.solana.com" },
 ];

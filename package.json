@@ -28,7 +28,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@orca-so/whirlpools-sdk": "^0.8.0",
+    "@orca-so/whirlpools-sdk": "^0.11.4",
     "@solana/wallet-adapter-base": "0.9.20",
     "@solana/wallet-adapter-phantom": "0.9.19",
     "@solana/wallet-adapter-solflare": "0.6.21",
@@ -43,8 +43,5 @@
     "sirv-cli": "^2.0.0",
     "stream-browserify": "^3.0.0",
     "svelte-navigator": "^3.2.2"
-  },
-  "resolutions": {
-    "@solana/spl-token": "^0.1.8"
   }
 }

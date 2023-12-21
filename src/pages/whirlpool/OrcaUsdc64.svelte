@@ -1,25 +1,28 @@
 <script lang="ts">
   import { Connection } from "@solana/web3.js";
   import {
-    AccountFetcher,
+    WhirlpoolAccountFetcher,
     PriceMath,
     WhirlpoolData,
+    DEFAULT_WHIRLPOOL_RETENTION_POLICY,
+    PREFER_CACHE,
   } from "@orca-so/whirlpools-sdk";
+  import { SimpleAccountFetcher } from "@orca-so/common-sdk";
   import Decimal from "decimal.js";
   import { rpcConnection } from "../../stores/index";
   import { ORCA_USDC_64_PUBKEY } from "../../lib/constants";
 
-  const fetcher = new AccountFetcher($rpcConnection);
+  const fetcher = new WhirlpoolAccountFetcher($rpcConnection, new SimpleAccountFetcher($rpcConnection, DEFAULT_WHIRLPOOL_RETENTION_POLICY));
 
   const getPrice = async (poolData: WhirlpoolData): Promise<Decimal> => {
-    const mints = await fetcher.listMintInfos(
+    const mints = await fetcher.getMintInfos(
       [poolData.tokenMintA, poolData.tokenMintB],
-      false
+      PREFER_CACHE,
     );
     return PriceMath.sqrtPriceX64ToPrice(
       poolData.sqrtPrice,
-      mints[0].decimals,
-      mints[1].decimals
+      mints.get(poolData.tokenMintA.toBase58()).decimals,
+      mints.get(poolData.tokenMintB.toBase58()).decimals
     );
   };
 

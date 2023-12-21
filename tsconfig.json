@@ -5,7 +5,6 @@
   "compilerOptions": {
     "target": "es6",
     "importsNotUsedAsValues": "remove",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
   }
 }

@@ -10,7 +10,7 @@
   import { rpcConnection } from "../../stores/index";
   import { onMount } from "svelte";
   import Decimal from "decimal.js";
-  import moment from "moment";
+  import moment, { HTML5_FMT } from "moment";
 
   type PriceHistoryEntry = {
     timestamp: moment.Moment;
@@ -40,7 +40,7 @@
     updatedSlot = context.slot;
 
     // parse Whirlpool
-    const data = ParsableWhirlpool.parse(accountInfo.data);
+    const data = ParsableWhirlpool.parse(SOL_USDC_8_PUBKEY, accountInfo);
     poolData = data;
 
     // sqrtPrice to price
@@ -87,7 +87,7 @@
 
 <h1>monitor SOL/USDC(8) with onAccountChange</h1>
 
-<h2>Public RPC servers don't support WebSocket from browsers...<br> so this page may not work well.</h2>
+<h6>Solana Public RPC servers don't support WebSocket from browsers, please use HELIUS RPC</h6>
 
 <h3>Realtime account info</h3>
 <ul>
@@ -114,7 +114,7 @@
 </table>
 
 <style>
-  h2 {
+  h6 {
     background-color: lightpink;
   }
 </style>
